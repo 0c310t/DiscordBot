@@ -1,0 +1,11 @@
+{
+  "name": "Downatello",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Do u even meme bro",
+  "main": "bot.js",
+  "author": "SgtBot",
+  "dependencies": {
+    "discord.js": "^11.3.2"
+  }
+}
