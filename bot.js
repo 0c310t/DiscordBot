@@ -8,15 +8,22 @@ console.log(`Monitoring ${client.users.size} users, in ${client.channels.size} c
 });
 
 client.on("guildCreate", guild => {
-  // This triggers when our boyo joins a new party
+	// This triggers when our boyo joins a new party
   console.log(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
   client.user.setActivity(`Serving ${client.guilds.size} servers`);
 });
 
 client.on("guildDelete", guild => {
-  // This event is what happens when boyo get kicked out of said party
+	// This event is what happens when boyo get kicked out of said party
   console.log(`I have been removed from: ${guild.name} (id: ${guild.id})`);
   client.user.setActivity(`Serving ${client.guilds.size} servers`);
+});
+
+	//listen for idiots joining the server, assign roles n shit
+client.on('guildMemberAdd', member => {
+	console.log('User ' + member.user.username + ' has joined the server!')
+	var role = member.guild.roles.find('name', 'Peeps');
+	member.addRole(role);
 });
 
 client.on('message', async message => {
@@ -26,8 +33,8 @@ client.on('message', async message => {
 	//Teaching bot boyo how to interpret text n shit
 	const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
 	const command = args.shift().toLowerCase();
-	
-	//whatsmylatency.exe
+
+	//whatsmylatency.notavirus
 	if (command === 'ping') {
 		const m = await message.channel.send("Ping?");
 		m.edit(`Pong! Latency is ${m.createdTimestamp - message.createdTimestamp}ms. API Latency is ${Math.round(client.ping)}ms`);
@@ -35,7 +42,7 @@ client.on('message', async message => {
 	
 	//Don't dab boyo
 	if (command === 'dab') {
-		message.react('😒');
+		message.react('ðŸ˜’');
 		message.reply('what are you 12?');
 	}
 	
@@ -53,9 +60,9 @@ client.on('message', async message => {
 	
 	//invite peeps
 	if(command === "invite") {
-		message.guild.channels.get('446022598174965784').createInvite()
+		message.guild.channels.get('449722863256076290').createInvite()
 		.then(invite => message.channel.send(`Invite: ${invite.url}`))
-		.catch(error => message.reply(`Unable to generate invite, error: ${error}`));
+		.catch(error => message.reply(`Unable to generate invite, error: ${error}`))
 	}
 	
 	//rules are rules after all
