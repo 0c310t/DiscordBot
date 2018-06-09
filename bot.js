@@ -22,7 +22,7 @@ client.on("guildDelete", guild => {
 	//listen for idiots joining the server, assign roles n shit
 client.on('guildMemberAdd', member => {
 	console.log('User ' + member.user.username + ' has joined the server!')
-	var role = member.guild.roles.find('name', 'Peeps');
+	var role = member.guild.roles.find('name', 'Guardian');
 	member.addRole(role);
 });
 
@@ -60,7 +60,7 @@ client.on('message', async message => {
 	
 	//invite peeps
 	if(command === "invite") {
-		message.guild.channels.get('449722863256076290').createInvite()
+		message.guild.channels.get('446022598174965784').createInvite()
 		.then(invite => message.channel.send(`Invite: ${invite.url}`))
 		.catch(error => message.reply(`Unable to generate invite, error: ${error}`))
 	}
@@ -85,7 +85,7 @@ client.on('message', async message => {
 	//Here's the start of all the fun tools
 	if(command === "kick") {
 		
-    if(!message.member.roles.some(r=>["Admin", "Mod"].includes(r.name)) )
+    if(!message.member.roles.some(r=>["Head Guardian", "Super Guardian", "Peacekeeper"].includes(r.name)) )
       return message.reply("you can't use this command bitch!");
   
     let member = message.mentions.members.first() || message.guild.members.get(args[0]);
@@ -105,7 +105,7 @@ client.on('message', async message => {
 	//For when someone's being a reaaaal fag
 	if(command === "ban") {
 		
-    if(!message.member.roles.some(r=>["Admin", "Mod"].includes(r.name)) )
+    if(!message.member.roles.some(r=>["Head Guardian", "Super Guardian", "Peacekeeper"].includes(r.name)) )
       return message.reply("you can't use this command bitch!");
     
     let member = message.mentions.members.first();
