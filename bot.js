@@ -46,6 +46,11 @@ client.on('message', async message => {
 		message.reply('what are you 12?');
 	}
 	
+	//rip episode 3
+	if (message.content === "f") {
+		message.channel.send('FUC U ANET GIMME ROLLER BEETLE');
+	}
+	
 	//REEEEEE
 	if (command === 'turtlepower') {
 		message.channel.send(' ' + '***autistic screeching***');
