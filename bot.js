@@ -24,6 +24,7 @@ client.on('guildMemberAdd', member => {
 	console.log('User ' + member.user.username + ' has joined the server!')
 	var role = member.guild.roles.find('name', 'Guardian');
 	member.addRole(role);
+	member.channel.send('Welcome to the server, ' + member.user.username + '!');
 });
 
 client.on('message', async message => {
@@ -44,11 +45,6 @@ client.on('message', async message => {
 	if (command === 'dab') {
 		message.react('ðŸ˜’');
 		message.reply('what are you 12?');
-	}
-	
-	//rip episode 3
-	if (message.content === "f") {
-		message.channel.send('FUC U ANET GIMME ROLLER BEETLE');
 	}
 	
 	//REEEEEE
