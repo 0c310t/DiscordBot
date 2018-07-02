@@ -86,7 +86,7 @@ client.on('message', async message => {
 	//Here's the start of all the fun tools
 	if(command === "kick") {
 		
-    if(!message.member.roles.some(r=>["Head Guardian", "Super Guardian", "Peacekeeper"].includes(r.name)) )
+    if(!message.member.roles.some(r=>["Master Guardian", "Mist Guardian"].includes(r.name)) )
       return message.reply("you can't use this command bitch!");
   
     let member = message.mentions.members.first() || message.guild.members.get(args[0]);
@@ -106,7 +106,7 @@ client.on('message', async message => {
 	//For when someone's being a reaaaal fag
 	if(command === "ban") {
 		
-    if(!message.member.roles.some(r=>["Head Guardian", "Super Guardian", "Peacekeeper"].includes(r.name)) )
+    if(!message.member.roles.some(r=>["Master Guardian", "Mist Guardian"].includes(r.name)) )
       return message.reply("you can't use this command bitch!");
     
     let member = message.mentions.members.first();
