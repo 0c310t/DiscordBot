@@ -15,14 +15,14 @@ client.on("guildCreate", guild => {
 
 client.on("guildDelete", guild => {
 	// This event is what happens when boyo get kicked out of said party
-  console.log(`I have been removed from: ${guild.name} (id: ${guild.id})`);
+  console.log(`User has been removed from: ${guild.name} (id: ${guild.id})`);
   client.user.setActivity(`Serving ${client.guilds.size} servers`);
 });
 
 	//listen for idiots joining the server, assign roles n shit
 client.on('guildMemberAdd', member => {
 	console.log('User ' + member.user.username + ' has joined the server!')
-	var role = member.guild.roles.find('name', 'Guardian');
+	var role = member.guild.roles.find('name', 'Member');
 	member.addRole(role);
 	member.channel.send('Welcome to the server, ' + member.user.username + '!');
 });
@@ -31,7 +31,7 @@ client.on('message', async message => {
 	//Don't reply to bots
 	if(message.author.bot) return;
 	
-	//Teaching bot boyo how to interpret text n shit
+	//Tells bot how to read text
 	const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
 	const command = args.shift().toLowerCase();
 
@@ -41,25 +41,14 @@ client.on('message', async message => {
 		m.edit(`Pong! Latency is ${m.createdTimestamp - message.createdTimestamp}ms. API Latency is ${Math.round(client.ping)}ms`);
 	}
 	
-	//Don't dab boyo
-	if (command === 'dab') {
-		message.react('ðŸ˜’');
-		message.reply('what are you 12?');
-	}
-	
-	//REEEEEE
-	if (command === 'turtlepower') {
-		message.channel.send(' ' + '***autistic screeching***');
-	}
-	
-	//Tell botty boi to say shit
+	//Tell the bot to say something
 	if(command === "say") {
 		const sayMessage = args.join(" ");
 		message.delete().catch(O_o=>{}); 
 		message.channel.send(sayMessage);
 	}
 	
-	//invite peeps
+	//invite people
 	if(command === "invite") {
 		message.guild.channels.get('446022598174965784').createInvite()
 		.then(invite => message.channel.send(`Invite: ${invite.url}`))
@@ -86,41 +75,41 @@ client.on('message', async message => {
 	//Here's the start of all the fun tools
 	if(command === "kick") {
 		
-    if(!message.member.roles.some(r=>["Master Guardian", "Mist Guardian"].includes(r.name)) )
-      return message.reply("you can't use this command bitch!");
+    if(!message.member.roles.some(r=>["Admin", "Moderator"].includes(r.name)) )
+      return message.reply("You can't use this command.");
   
     let member = message.mentions.members.first() || message.guild.members.get(args[0]);
     if(!member)
-      return message.reply("think you made a typo there bud.");
+      return message.reply("That member does not exist.");
     if(!member.kickable) 
-      return message.reply("you can't kick this guy he's better than you");
+      return message.reply("You do not have permission to kick this user.");
   
     let reason = args.slice(1).join(' ');
     if(!reason) reason = "No reason provided";
 	
     await member.kick(reason)
       .catch(error => message.reply(`Sorry ${message.author} I couldn't kick because of : ${error}`));
-    message.reply(`${member.user.tag} got his ass kicked out by ${message.author.tag} because: ${reason}`);
+    message.reply(`${member.user.tag} was kicked by ${message.author.tag} because: ${reason}`);
 	}
 	
-	//For when someone's being a reaaaal fag
+	//For when someone's being a reaaaal problem
 	if(command === "ban") {
 		
-    if(!message.member.roles.some(r=>["Master Guardian", "Mist Guardian"].includes(r.name)) )
-      return message.reply("you can't use this command bitch!");
+    if(!message.member.roles.some(r=>["Admin", "Moderator"].includes(r.name)) )
+      return message.reply("You can't use this command.");
     
     let member = message.mentions.members.first();
     if(!member)
-      return message.reply("think you made a typo there bud.");
+      return message.reply("That member does not exist.");
     if(!member.bannable) 
-      return message.reply("are you ACTUALLY trying to ban this dude? Really?!");
+      return message.reply("You do not have permission to ban this user.");
 
     let reason = args.slice(1).join(' ');
     if(!reason) reason = "No reason provided";
     
     await member.ban(reason)
       .catch(error => message.reply(`Sorry ${message.author} I couldn't ban because of : ${error}`));
-    message.reply(`${member.user.tag} got his bitch ass BANNED by ${message.author.tag} because: ${reason}`);
+    message.reply(`${member.user.tag} was banned by ${message.author.tag} because: ${reason}`);
   }
   
   //house keeeeping!
